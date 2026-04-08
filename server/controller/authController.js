@@ -1,38 +1,37 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { JsonWebTokenError } from 'jsonwebtoken';
-import studentModel from '../models/StudentModel';
+import StudentModel from '../models/StudentModel.js';
 
 export const register = async(req,res)=>{
     const{name,email,password}=req.body;
 
     if(!name || !email || !password){
-        return res.json({success:false , msg:"enter all the credentials"})
+        return res.status(400).json({success:false , msg:"enter all the credentials"})
     }
 
     try{
-        const existingStudent = await studentModel.findOne({email})
+        const existingStudent = await StudentModel.findOne({email})
 
         if(existingStudent){
-            return res.json({success:false , msg:"mail already exist "})
+            return res.status(400).json({success:false , msg:"mail already exist "})
         }
 
-        const hashedPassword= bcrypt.hash(password,10);
-        const student = new userModel({name,email,password:hashedPassword});
+        const hashedPassword= await bcrypt.hash(password,10);
+        const student = new StudentModel({name,email,password:hashedPassword});
 
         await student.save();
 
         const token = jwt.sign({id: student._id}, process.env.JWT_SECRET,{expiresIn:'7d'});
 
-        res.cookie('token', token, {
+        res.status(201).cookie('token', token, {
             httpOnly:true,
             //SECURE
             //sameSite
             maxAge:7*24*60*60*1000
-        });
-
+        }).json({ success: true, message: "Registered successfully" });;
+        console.log("registered successfully");
     }catch(err){
-        res.json({success:false,msg:err.message})
+        res.status(400).json({success:false,msg:err.message})
     }
 }
 
@@ -43,7 +42,7 @@ export const login = async(req,res)=>{
         res.json({success:false, message:"email and password are required "})
     }
     try{
-        const student = await studentModel.findOne({email})
+        const student = await StudentModel.findOne({email})
 
         if(!student){
             return res.json({success:false,msg:"Invalid credentials"})
@@ -61,7 +60,7 @@ export const login = async(req,res)=>{
             //sameSite
             maxAge:7*24*60*60*1000
         });
-        return res.json({success:true})
+        return res.json({success:true,msg:`logged in successfully - welcome ${student.name}`})
 
 
 
