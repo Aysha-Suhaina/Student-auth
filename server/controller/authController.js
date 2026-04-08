@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import StudentModel from '../models/StudentModel.js';
+import transporter from '../config/nodemailer.js';
 
 export const register = async(req,res)=>{
     const{name,email,password}=req.body;
@@ -30,6 +31,20 @@ export const register = async(req,res)=>{
             maxAge:7*24*60*60*1000
         }).json({ success: true, message: "Registered successfully" });;
         console.log("registered successfully");
+
+        //welcome mil
+    const mailOptions ={
+        from:process.env.SENDER_MAIL,
+        to: email,
+        subject:`Welcome to our platform ${name}`,
+        text:`Thank you for registering with us ${name}  . Your accound has been created with the email id ${email}.
+        We are excited to have you on board`
+    }
+
+    await transporter.sendMail(mailOptions);
+
+
+
     }catch(err){
         res.status(400).json({success:false,msg:err.message})
     }
@@ -79,3 +94,4 @@ export const logout= async(req,res)=>{
         return res.json({success:false,msg:err.message})
     }
 }
+
