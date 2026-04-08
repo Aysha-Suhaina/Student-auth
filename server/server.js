@@ -4,6 +4,7 @@ import 'dotenv/config';
 import cookieParser from "cookie-parser";   
 import connectDB from './config/mongodb.js'
 import authRouter from './routes/authRoutes.js'
+import studentRouter from "./routes/studentRoutes.js";
 
 const app=express();
 
@@ -18,10 +19,12 @@ app.use(cors({
 }));
 
 //API endpoints 
-app.get("/",(req,res)=>{
-    res.send("api working fine");
+app.use((req,res,next)=>{
+    console.log("incoming request:", req.method, req.url);
+    next();
 })
 app.use('/api/auth',authRouter)
+app.use('/api/student',studentRouter)
 
 app.listen(port ,()=>{
     console.log(`server is runnign on port ${port}`);

@@ -1,9 +1,9 @@
 import StudentModel from "../models/StudentModel.js";
 
-export const getStudentData= async(req,res)=>{
+const getStudentData= async(req,res)=>{
     try{
          const {studentId}= req.body;
-         const student= await StudentModel.findById(studentId);
+         const student= await StudentModel.findById(req.student.id);
          if(!student){
             return res.json({success:false,msg:"student not found"});
          }
@@ -19,3 +19,5 @@ export const getStudentData= async(req,res)=>{
         return res.json({success:false,msg:err.message})
     }
 }
+
+export default getStudentData;
