@@ -95,3 +95,76 @@ export const logout= async(req,res)=>{
     }
 }
 
+export const sendResetOtp = async (req,res)=>{
+    const {email}= req.body;
+
+    if(!email){
+        return res.json({success:false,msg:"email required"})
+    }
+    try{
+        const student = await StudentModel.findOne({email
+        });
+
+        if(!student){
+            return res.json({success:false,msg:"email not found"})
+        }
+
+        const otp= String(Math.floor(100000 + Math.random() * 900000));
+
+        student.resetOtp=otp;
+        student.resetOtpExpiresAt= Date.now() + 10*60*1000;
+
+        await student.save();
+
+        const mailOptions ={
+        from:process.env.SENDER_MAIL,
+        to: email,
+        subject:"Password Reset OTP",
+        text:`your OTP for resetting your password is ${otp}. The OTP is valid for 10 minutes, 
+        please use it to reset your password.`
+        }
+
+        await transporter.sendMail(mailOptions);
+
+        return res.status(200).json({success:true,msg:"OTP sent to your email"})
+
+    }catch(err){
+        return res.status(400).json({success:false,msg:err.message})
+    }
+}
+
+//reseting the password
+
+export const resetPassword= async(req,res)=>{
+
+    const {email,otp,newPassword}= req.body;
+
+    if(!email || !otp || !newPassword){
+        return res.status(400).json({success:false,msg:"enter all the credentials"})
+    }
+    try{
+       const student=await StudentModel.findOne({email});
+
+       if(!student){
+        return res.status(400).json({success:false,msg:"email not found"})  
+
+       }
+       if(student.resetOtp !==otp || student.resetOtp=== "" || student.resetOtpExpiresAt < Date.now()){
+        return res.status(400).json({success:false,msg:"invalid or expired OTP"})
+       }
+
+       const hashedPassword= await bcrypt.hash(newPassword,10);
+
+       student.password=hashedPassword;
+       student.resetOtp="";
+       student.resetOtpExpiresAt=0;
+
+       await student.save();
+
+       return res.status(200).json({success:true,msg:"password reset successful"})
+    }catch(err){
+        return res.status(400).json({success:false,msg:err.message})
+    };
+    
+
+}
