@@ -71,4 +71,43 @@ if already registered , just enter the credentials - if not you have to register
 
 **Test - Done**
 
+-----------------------------------
+* http://localhost:4000/api/auth/send-reset-otp
+
+
+### method type - **POST**
+
+### required fields in the body
+
+-email
+
+sample JSON :
+
+{
+"email":"aysha@gmail.com"
+}
+
+
+This API generates a 6-digit OTP and sends it to the registered email. The OTP is stored in the database with an expiry time
+
+**Test - Done**
+-------------------------------
+* http://localhost:4000/api/auth/reset-password
+
+### method type - **POST**
+### required fields in the body
+
+-email
+-otp
+-newPassword
+
+sample JSON :
+
+{
+"email":"aysha@gmail.com",
+"otp":"123456",
+"newPassword":"newpass123"
+}
+
+----------------------------------------
 
