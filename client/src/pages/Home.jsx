@@ -1,19 +1,19 @@
 import React from 'react'
 import Login from './Login'
 import {assets} from '../assets/assets'
+import "./Home.css"
 const Home = () => {
   return (
     <div className="homepage-div">
-      {/* left side login + right side image ------the login side handled by <Login/> component */}
-      <div clasName="bg-img">
-        <img src={assets.school_bg}/>
+      <div className="homeContainer"> 
+        <div className="login-div">
+          <Login />
+        </div>
+        <div className="bg-img">
+          <img src={assets.school_bg} alt="bg" />
+        </div>
       </div>
-      <div className="login-div">
-        <Login/>
-      </div>
-
     </div>
   )
 }
-
 export default Home

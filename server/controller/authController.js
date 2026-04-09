@@ -14,7 +14,7 @@ export const register = async(req,res)=>{
         const existingStudent = await StudentModel.findOne({email})
 
         if(existingStudent){
-            return res.status(400).json({success:false , msg:"mail already exist "})
+            return res.json({success:false , msg:"mail already exist - please try with another mail "})
         }
 
         const hashedPassword= await bcrypt.hash(password,10);
@@ -29,7 +29,7 @@ export const register = async(req,res)=>{
             //SECURE
             //sameSite
             maxAge:7*24*60*60*1000
-        }).json({ success: true, message: "Registered successfully" });;
+        }).json({ success: true, msg: "Registered successfully" });;
         console.log("registered successfully");
 
         //welcome mil
@@ -54,7 +54,7 @@ export const login = async(req,res)=>{
     const {email,password}= req.body;
 
     if(!email || !password){
-        return res.json({success:false, message:"email and password are required "})
+        return res.json({success:false, msg:"email and password are required "})
     }
     try{
         const student = await StudentModel.findOne({email})
@@ -75,9 +75,9 @@ export const login = async(req,res)=>{
             //sameSite
             maxAge:7*24*60*60*1000
         });
-        return res.json({success:true,msg:`logged in successfully - welcome ${student.name}`})
+        return res.json({success:true,msg:`logged in successfully - welcome ${student.name}`,name:student.name});
 
-
+//message
 
     }catch(err){
         return res.json({success:false,msg:err.message})
@@ -166,5 +166,4 @@ export const resetPassword= async(req,res)=>{
         return res.status(400).json({success:false,msg:err.message})
     };
     
-
 }

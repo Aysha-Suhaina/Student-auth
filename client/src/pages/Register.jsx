@@ -1,0 +1,57 @@
+import React, { useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import "./Register.css";
+import {assets} from '../assets/assets'
+
+const Register = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: ""
+  });
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        
+      // console.log(formData);
+      const res = await axios.post("http://localhost:4000/api/auth/register",formData);
+      alert(res.data.msg);
+      navigate("/");
+    }catch (err) {
+      console.log(err);
+      alert("Registration failed");
+    }
+  };
+  return (
+    <div className="register">
+      <div className="registerContainer">
+        <div className="registerLeft">
+          <h2>Create Account</h2>
+          <form onSubmit={handleSubmit} className="registerForm">
+
+            <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} />
+            <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange}/>
+            <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange}/>
+
+            <button type="submit">Register</button>
+
+            <p>Already have an account? <Link to="/">Login</Link> </p>
+          </form>
+        </div>
+        <div className="registerRight">
+          <img src={assets.school_bg} alt="illustration" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Register;
