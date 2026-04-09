@@ -24,7 +24,7 @@ export const register = async(req,res)=>{
 
         const token = jwt.sign({id: student._id}, process.env.JWT_SECRET,{expiresIn:'7d'});
 
-        res.status(201).cookie('token', token, {
+        return res.status(201).cookie('token', token, {
             httpOnly:true,
             //SECURE
             //sameSite
@@ -46,7 +46,7 @@ export const register = async(req,res)=>{
 
 
     }catch(err){
-        res.status(400).json({success:false,msg:err.message})
+        return res.status(400).json({success:false,msg:err.message})
     }
 }
 
@@ -54,7 +54,7 @@ export const login = async(req,res)=>{
     const {email,password}= req.body;
 
     if(!email || !password){
-        res.json({success:false, message:"email and password are required "})
+        return res.json({success:false, message:"email and password are required "})
     }
     try{
         const student = await StudentModel.findOne({email})
