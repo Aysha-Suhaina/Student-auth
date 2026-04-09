@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import ResetPassword from "./pages/ResetPassword";
 import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
 
 function App(){
   return (

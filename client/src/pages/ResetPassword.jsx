@@ -1,11 +1,90 @@
-import React from 'react'
+import { useState } from "react";
+import axios from "axios";
+import {useNavigate} from 'react-router-dom';
+import "./ResetPassword.css";
 
-const ResetPassword = () => {
+function ForgetPassword() {
+  const navigate =useNavigate();
+  const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [step, setStep] = useState(1);
+
+const sendOtp = async () => {
+  if (!email) {
+    alert("Please enter email");
+    return;
+  }
+
+  try {
+    const res = await axios.post(
+      "http://localhost:4000/api/auth/send-reset-otp",
+      { email }
+    );
+
+    alert(res.data.message || "OTP sent");
+    setStep(2);
+  } catch (err) {
+    alert(err.response?.data?.message || "Error sending OTP");
+  }
+};
+
+  const resetPassword = async () => {
+    try {
+      await axios.post("http://localhost:4000/api/auth/reset-password", {
+        email,
+        otp,
+        newPassword
+      });
+      alert("Password reset successful");
+      navigate("/")
+    } catch (err) {
+      alert("Error resetting password", err.message);
+    }
+  };
+
   return (
-    <div>
-      <h1>Reset password page here bruvv</h1>
+    <div className="container">
+
+      <h2>Forget Password</h2>
+
+      {step === 1 && (
+        <div>
+          <input
+            type="email"
+            placeholder="Enter email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <button onClick={sendOtp}>Send OTP</button>
+        </div>
+      )}
+
+      {step === 2 && (
+        <div>
+          <input
+            type="text"
+            placeholder="Enter OTP"
+            value={otp}
+            onChange={(e) => setOtp(e.target.value)}
+          />
+
+          <input
+            type="password"
+            placeholder="New Password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+          />
+
+          <button onClick={resetPassword}>Reset Password</button>
+          
+        </div>
+      )}
+      
+
     </div>
-  )
+  );
 }
 
-export default ResetPassword
+export default ForgetPassword;

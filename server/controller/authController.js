@@ -31,6 +31,7 @@ export const register = async(req,res)=>{
             maxAge:7*24*60*60*1000
         }).json({ success: true, msg: "Registered successfully" });;
         console.log("registered successfully");
+        console.log("testing now - april 9")
 
         //welcome mil
     const mailOptions ={
@@ -41,7 +42,16 @@ export const register = async(req,res)=>{
         We are excited to have you on board`
     }
 
-    await transporter.sendMail(mailOptions);
+    try{
+        console.log(" before sending mail ")
+        const info = await transporter.sendMail(mailOptions);
+        console.log("mail sent:", info);
+        console.log("after sending mail")
+
+    }catch(err){
+        console.log("error sending mail:", err);
+    }
+    
 
 
 
@@ -71,8 +81,8 @@ export const login = async(req,res)=>{
 
         res.cookie('token', token, {
             httpOnly:true,
-            //SECURE
-            //sameSite
+            secure:false,
+            sameSite:"lax",
             maxAge:7*24*60*60*1000
         });
         return res.json({success:true,msg:`logged in successfully - welcome ${student.name}`,name:student.name});
@@ -115,7 +125,7 @@ export const sendResetOtp = async (req,res)=>{
         student.resetOtpExpiresAt= Date.now() + 10*60*1000;
 
         await student.save();
-
+        console.log(" before sending mail ")
         const mailOptions ={
         from:process.env.SENDER_MAIL,
         to: email,
@@ -125,7 +135,7 @@ export const sendResetOtp = async (req,res)=>{
         }
 
         await transporter.sendMail(mailOptions);
-
+        console.log("mail sent:", mailOptions);
         return res.status(200).json({success:true,msg:"OTP sent to your email"})
 
     }catch(err){

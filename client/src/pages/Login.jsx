@@ -14,9 +14,12 @@ const Login = () => {
     try{ 
       const res=await axios.post("http://localhost:4000/api/auth/login",{email,password},{withCredentials: true}); 
       alert(res.data.msg);
-      localStorage.setItem("user", JSON.stringify(res.data));
+      if(res.data.success==true){
+        localStorage.setItem("user", JSON.stringify(res.data));
 
       navigate("/dashboard");
+      }
+      
     }catch(err){
       console.log(err);
       alert("login failed");
