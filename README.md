@@ -28,15 +28,18 @@ This project is a full-stack authentication system built using the MERN stack (M
 
 ### Clone Repository
 ```bash
+ 
 git clone <repo-url>
-cd <repo-name>```
+cd <repo-name>
+```
 
 
 ###Install frotend 
 
 ```cd client
 npm install
-npm install axios react-router-dom```
+npm install axios react-router-dom
+```
 
 
 ---
@@ -44,7 +47,8 @@ npm install axios react-router-dom```
 ###Install Backend
 ```cd server
 npm install
-npm install express cors dotenv nodemon jsonwebtoken mongoose bcryptjs nodemailer```
+npm install express cors dotenv nodemon jsonwebtoken mongoose bcryptjs nodemailer
+```
 
 ---
 
@@ -57,7 +61,8 @@ Create a .env file inside server/:
 JWT_SECRET=your_secret_key
 SMTP_USER=your_username
 SMTP_KEY=your_key
-SENDER_MAIL=your_mail```
+SENDER_MAIL=your_mail
+```
 
 ---
 
@@ -76,12 +81,14 @@ then on .env your mongo_uri shoyld be ```mongodb://localhost:27017/studentDB"```
 ##Run Application
 ###Start Backend
 ```cd server
-npm run dev```
+npm run dev
+```
 
 
 ###Start Frontend
 ```cd client
-npm run dev```
+npm run dev
+```
 
 
 
