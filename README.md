@@ -34,7 +34,7 @@ cd <repo-name>
 ```
 
 
-###Install frotend 
+### Install frotend 
 
 ```cd client
 npm install
@@ -44,7 +44,7 @@ npm install axios react-router-dom
 
 ---
 
-###Install Backend
+### Install Backend
 ```cd server
 npm install
 npm install express cors dotenv nodemon jsonwebtoken mongoose bcryptjs nodemailer
@@ -52,7 +52,7 @@ npm install express cors dotenv nodemon jsonwebtoken mongoose bcryptjs nodemaile
 
 ---
 
-###Environment Variables
+### Environment Variables
 
 Create a .env file inside server/:
 
@@ -66,7 +66,7 @@ SENDER_MAIL=your_mail
 
 ---
 
-##Database
+## Database
 
 if using local mongodb server 
 make sure you have mongodb server locally installed 
@@ -78,14 +78,14 @@ this will run the mongodb server locally
 
 then on .env your mongo_uri shoyld be ```mongodb://localhost:27017/studentDB"```
 
-##Run Application
-###Start Backend
+## Run Application
+### Start Backend
 ```cd server
 npm run dev
 ```
 
 
-###Start Frontend
+### Start Frontend
 ```cd client
 npm run dev
 ```
