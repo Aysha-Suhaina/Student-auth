@@ -24,36 +24,23 @@ export const register = async(req,res)=>{
 
         const token = jwt.sign({id: student._id}, process.env.JWT_SECRET,{expiresIn:'7d'});
 
-        return res.status(201).cookie('token', token, {
+        //welcome mil
+        res.status(201).cookie('token', token, {
             httpOnly:true,
             //SECURE
             //sameSite
             maxAge:7*24*60*60*1000
-        }).json({ success: true, msg: "Registered successfully" });;
-        console.log("registered successfully");
-        console.log("testing now - april 9")
+        }).json({ success: true, msg: "Registered successfully" });
 
-        //welcome mil
-    const mailOptions ={
+        const mailOptions ={
         from:process.env.SENDER_MAIL,
         to: email,
         subject:`Welcome to our platform ${name}`,
         text:`Thank you for registering with us ${name}  . Your accound has been created with the email id ${email}.
         We are excited to have you on board`
     }
-
-    try{
-        console.log(" before sending mail ")
+    console.log("sending mail with options:", mailOptions);
         const info = await transporter.sendMail(mailOptions);
-        console.log("mail sent:", info);
-        console.log("after sending mail")
-
-    }catch(err){
-        console.log("error sending mail:", err);
-    }
-    
-
-
 
     }catch(err){
         return res.status(400).json({success:false,msg:err.message})
