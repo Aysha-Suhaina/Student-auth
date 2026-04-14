@@ -4,11 +4,14 @@ import axios from 'axios';
 import {Link} from 'react-router-dom';
 import "./Login.css"
 import { useNavigate } from 'react-router-dom';
+import {assets} from "../assets/assets"
 
 const Login = () => {
   const navigate = useNavigate();
   const [email,setEmail]=useState("");
   const [password,setPassword]=useState("");
+  const [showPassword, setShowPassword]= useState(false);
+
   const handleSubmit= async (e)=>{
     e.preventDefault();
     try{ 
@@ -19,7 +22,6 @@ const Login = () => {
 
       navigate("/dashboard");
       }
-      
     }catch(err){
       console.log(err);
       alert("login failed");
@@ -33,7 +35,13 @@ const Login = () => {
     <div className="login">
       <form onSubmit={handleSubmit} className="loginForm"> 
         <input type="email" name="email" value={email} placeholder='Email' onChange={(e) => setEmail(e.target.value)} />
-        <input type="password" name="password" value={password} placeholder='Password' onChange={(e) => setPassword(e.target.value)} />
+
+        <div className="password-container">
+          <input className="password-input" type={showPassword ? "text" : "password"} name="password" value={password} 
+          placeholder='Password' onChange={ (e)=>setPassword(e.target.value)}  />
+          <img className="eye-icon" src={showPassword ? assets.eye_close : assets.eye_open} onClick={() => setShowPassword(!showPassword) } />
+        </div>
+        
 
         <Link to="/reset-password">Forgot password?</Link>
 
