@@ -25,7 +25,7 @@
   padding: 40px;
 }
 .registerLeft h2 {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   color: #333;
   font-weight: 600;
 }
@@ -34,7 +34,7 @@
   max-width: 280px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
 }
 .registerForm input {
   padding: 12px 15px;
@@ -47,7 +47,6 @@
   font-size: 14px;
 }
 .registerForm button {
-  margin-top: 10px;
   padding: 12px;
   border-radius: 25px;
   border: none;

@@ -8,8 +8,8 @@
 .loginForm input {
   padding: 12px 15px;
   border-radius: 25px;
-  border: none;
-  background: #e6e6ea;
+  border: solid 1px #ccc;
+  /* background: #e6e6ea; */
   box-shadow: inset 3px 3px 6px rgba(0,0,0,0.1),
               inset -3px -3px 6px rgba(255,255,255,0.7);
   outline: none;
@@ -34,7 +34,7 @@
 }
 .eye-icon {
   position: absolute;
-  right: 10px;
+  right: 1px;
   top: 50%;
   transform: translateY(-50%);
   width: 20px;
