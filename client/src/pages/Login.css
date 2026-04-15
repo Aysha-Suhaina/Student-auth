@@ -25,20 +25,26 @@
 }
 .password-container {
   position: relative;
-  width: 275px;
+  width: 100%;
 }
 .password-input {
   width: 100%;
-  padding: 10px;
-  padding-right: 40px; 
+  padding: 10px 45px 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
 }
 .eye-icon {
   position: absolute;
-  right: 1px;
+  right: 12px;
   top: 50%;
-  transform: translateY(-50%);
+  margin-bottom:20px;
+  transform: translateY(-80%);
   width: 20px;
+  height: 20px;
   cursor: pointer;
+  opacity: 0.7;
 }
 .loginForm a {
   font-size: 12px;
