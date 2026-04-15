@@ -6,6 +6,7 @@ import {assets} from '../assets/assets'
 
 const Register = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -30,6 +31,7 @@ const Register = () => {
       return;
     }
     try {
+      setLoading(true);
       // console.log(formData);
       const res = await axios.post("http://localhost:4000/api/auth/register",formData);
       alert(res.data.msg);
@@ -38,6 +40,9 @@ const Register = () => {
       console.log(err);
       alert("Registration failed");
     }
+    finally {
+    setLoading(false); 
+  }
   };
   return (
     <div className="register">
@@ -56,7 +61,7 @@ const Register = () => {
                 : <p style={{ color: "red" }}>Passwords do not match</p>
             )}
 
-            <button type="submit" >Register</button>
+            <button type="submit" disabled={loading} >{loading ? "Loading..." : "Register"}</button>
             {/* disabled={formData.password !== confirmPassword} */}
 
             <p>Already have an account? <Link to="/">Login</Link> </p>

@@ -9,6 +9,7 @@ function ForgetPassword() {
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
 
 const sendOtp = async () => {
   if (!email) {
@@ -17,6 +18,7 @@ const sendOtp = async () => {
   }
 
   try {
+    setLoading(true);
     const res = await axios.post(
       "http://localhost:4000/api/auth/send-reset-otp",
       { email }
@@ -26,6 +28,8 @@ const sendOtp = async () => {
     setStep(2);
   } catch (err) {
     alert(err.response?.data?.msg || "Error sending OTP");
+  }finally {
+    setLoading(false);
   }
 };
 
@@ -56,7 +60,7 @@ const sendOtp = async () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <button onClick={sendOtp}>Send OTP</button>
+          <button onClick={sendOtp} disabled={loading}>{loading ? "Sending..." : "Send OTP"}</button>
         </div>
       )}
 
