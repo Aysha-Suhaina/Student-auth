@@ -22,10 +22,10 @@ const sendOtp = async () => {
       { email }
     );
 
-    alert(res.data.message || "OTP sent");
+    alert(res.data.msg || "OTP sent");
     setStep(2);
   } catch (err) {
-    alert(err.response?.data?.message || "Error sending OTP");
+    alert(err.response?.data?.msg || "Error sending OTP");
   }
 };
 

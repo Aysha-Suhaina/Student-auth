@@ -96,14 +96,14 @@ export const sendResetOtp = async (req,res)=>{
     const {email}= req.body;
 
     if(!email){
-        return res.json({success:false,msg:"email required"})
+        return res.status(400).json({success:false,msg:"email required"})
     }
     try{
         const student = await StudentModel.findOne({email
         });
 
         if(!student){
-            return res.json({success:false,msg:"email not found"})
+            return res.status(404).json({success:false,msg:"email not found"})
         }
 
         const otp= String(Math.floor(100000 + Math.random() * 900000));
