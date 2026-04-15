@@ -56,7 +56,6 @@ const sendOtp = async () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-
           <button onClick={sendOtp}>Send OTP</button>
         </div>
       )}
@@ -69,20 +68,10 @@ const sendOtp = async () => {
             value={otp}
             onChange={(e) => setOtp(e.target.value)}
           />
-
-          <input
-            type="password"
-            placeholder="New Password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-          />
-
-          <button onClick={resetPassword}>Reset Password</button>
-          
+          <input type="password" placeholder="New Password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)}/>
+          <button onClick={resetPassword}>Reset Password</button> 
         </div>
       )}
-      
-
     </div>
   );
 }
