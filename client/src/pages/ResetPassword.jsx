@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import {useNavigate} from 'react-router-dom';
 import "./ResetPassword.css";
+import {toast} from "react-toastify";
 
 function ForgetPassword() {
   const navigate =useNavigate();
@@ -13,7 +14,7 @@ function ForgetPassword() {
 
 const sendOtp = async () => {
   if (!email) {
-    alert("Please enter email");
+    toast.warning("Please enter your email");
     return;
   }
 
@@ -24,10 +25,10 @@ const sendOtp = async () => {
       { email }
     );
 
-    alert(res.data.msg || "OTP sent");
+    toast.success(res.data.msg || "OTP sent");
     setStep(2);
   } catch (err) {
-    alert(err.response?.data?.msg || "Error sending OTP");
+    toast.error(err.response?.data?.msg || "Error sending OTP");
   }finally {
     setLoading(false);
   }
@@ -40,10 +41,10 @@ const sendOtp = async () => {
         otp,
         newPassword
       });
-      alert("Password reset successful");
+      toast.success("Password reset successful");
       navigate("/")
     } catch (err) {
-      alert("Error resetting password", err.message);
+      toast.error("Error resetting password", err.message);
     }
   };
 

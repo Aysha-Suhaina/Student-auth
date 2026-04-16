@@ -51,7 +51,7 @@ export const login = async(req,res)=>{
     const {email,password}= req.body;
 
     if(!email || !password){
-        return res.json({success:false, msg:"email and password are required "})
+        return res.status(400).json({success:false, msg:"email and password are required "})
     }
     try{
         const student = await StudentModel.findOne({email})

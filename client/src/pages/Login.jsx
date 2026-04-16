@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import "./Login.css"
 import { useNavigate } from 'react-router-dom';
 import {assets} from "../assets/assets"
+import {toast} from 'react-toastify';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,8 +16,17 @@ const Login = () => {
   const handleSubmit= async (e)=>{
     e.preventDefault();
     try{ 
+      if(!email || !password){
+        toast.warning("Please fill all fields");
+        return;
+      }
       const res=await axios.post("http://localhost:4000/api/auth/login",{email,password},{withCredentials: true}); 
-      alert(res.data.msg);
+      if(res.data.success === false){
+        toast.error(res.data.msg);
+      }
+      else{
+        toast.success(res.data.msg);
+      }
       if(res.data.success==true){
         localStorage.setItem("user", JSON.stringify(res.data));
 
@@ -24,7 +34,7 @@ const Login = () => {
       }
     }catch(err){
       console.log(err);
-      alert("login failed");
+      toast.error("login failed");
     }
   }
   return (

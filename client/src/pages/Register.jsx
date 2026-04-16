@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
 import {assets} from '../assets/assets'
+import {toast} from 'react-toastify';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -15,8 +16,6 @@ const Register = () => {
 
   const [confirmPassword, setConfirmPassword] = useState("");
 
-
-
   const handleChange = (e) => {
     e.preventDefault();
     setFormData({
@@ -26,19 +25,24 @@ const Register = () => {
   }
   const handleSubmit = async (e) =>{
     e.preventDefault();
+    if(!formData.name || !formData.email || !formData.password || !confirmPassword){
+      toast.warning("Please fill all fields");
+      return;
+    }
+    e.preventDefault();
     if (formData.password !== confirmPassword) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
     try {
       setLoading(true);
       // console.log(formData);
       const res = await axios.post("http://localhost:4000/api/auth/register",formData);
-      alert(res.data.msg);
+      toast.success(res.data.msg);
       navigate("/");
     }catch (err) {
       console.log(err);
-      alert("Registration failed");
+      toast.error("Registration failed");
     }
     finally {
     setLoading(false); 
