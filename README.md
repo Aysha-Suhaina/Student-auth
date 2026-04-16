@@ -36,7 +36,8 @@ cd <repo-name>
 
 ### Install frotend 
 
-```cd client
+```
+cd client
 npm install
 npm install axios react-router-dom react-toastify
 ```
@@ -45,7 +46,8 @@ npm install axios react-router-dom react-toastify
 ---
 
 ### Install Backend
-```cd server
+```
+cd server
 npm install
 npm install express cors dotenv nodemon jsonwebtoken mongoose bcryptjs nodemailer
 ```
@@ -57,7 +59,8 @@ npm install express cors dotenv nodemon jsonwebtoken mongoose bcryptjs nodemaile
 Create a .env file inside server/:
 
 
-```MONGO_URI=your_mongodb_connection_string
+```
+MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
 SMTP_USER=your_username
 SMTP_KEY=your_key
