@@ -38,7 +38,7 @@ cd <repo-name>
 
 ```cd client
 npm install
-npm install axios react-router-dom
+npm install axios react-router-dom react-toastify
 ```
 
 
@@ -76,19 +76,22 @@ open cmd and enter
 
 this will run the mongodb server locally
 
-then on .env your mongo_uri shoyld be ```mongodb://localhost:27017/studentDB"```
+then on .env your mongo_uri should be ```mongodb://localhost:27017/studentDB"```
 
 ## Run Application
-### Start Backend
-```cd server
-npm run dev
-```
+from your root directory enter this command 
 
+```npm start ```
 
-### Start Frontend
-```cd client
-npm run dev
-```
+this will give app startup logs 
+
+Ensure you see these two logs 
+
+```server running on port 4000 db connected successfully ```
+
+Hence the Application works 
+
+visit ``` http://localhost:4000/ ``` 
 
 
 
