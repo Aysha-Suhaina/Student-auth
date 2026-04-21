@@ -1,4 +1,4 @@
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/Navbar";
 import "./Dashboard.css";
 
 function Dashboard() {
@@ -6,7 +6,7 @@ function Dashboard() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar/>
 
       <h1>Welcome {user.name}</h1>
 

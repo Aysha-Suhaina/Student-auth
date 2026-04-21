@@ -1,7 +1,6 @@
-import React from 'react'
-import Login from './Login'
-import {assets} from '../assets/assets'
+import { assets } from '../../assets/assets'
 import "./Home.css"
+import Login from './Login'
 const Home = () => {
   return (
     <div className="homepage-div">

@@ -94,9 +94,6 @@ Ensure you see these two logs
 
 Hence the Application works 
 
-visit ``` http://localhost:4000/ ``` 
-
-
-
+visit ``` http://localhost:4000/ ```
 
 
