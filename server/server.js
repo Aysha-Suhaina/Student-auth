@@ -26,6 +26,7 @@ app.use((req,res,next)=>{
 })
 app.use('/api/auth',authRouter)
 app.use('/api/student',studentRouter)
+app.use('/api/timer',timerRouter)
 
 app.listen(port ,()=>{
     console.log(`server is runnign on port ${port}`);

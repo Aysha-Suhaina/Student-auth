@@ -1,9 +1,9 @@
 import express from "express";
-import timerController from "../controllers/timerController.js";
+import {saveTimer,getTimers} from "../controller/TimerController.js";
 
 const router = express.Router();
 
-router.post("/save", timerController.saveTimer);
-router.get("/", timerController.getTimers);
+router.post("/save", saveTimer);
+router.get("/", getTimers);
 
 export default router;
