@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import connectDB from './config/mongodb.js'
 import authRouter from './routes/authRoutes.js'
 import studentRouter from "./routes/studentRoutes.js";
+import timerRouter from "./routes/timerRoutes.js";
 
 const app=express();
 
