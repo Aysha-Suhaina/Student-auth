@@ -11,9 +11,9 @@ export const saveTimer = async (req, res) => {
       duration,
       completed
     });
-    console.log("Timer controller working")
+    //console.log("Timer controller working")
     await timer.save();
-    console.log("after saving")
+    //console.log("after saving")
     res.status(201).json({ message: "Timer saved", timer });
   } catch (err) {
     res.status(500).json({ error: err.message });

@@ -15,7 +15,9 @@ export default function Timer() {
   const [customMinutes, setCustomMinutes] = useState(1);
 
   const startTimeRef = useRef(null);
-  const completedRef = useRef(null); // null = not done, true/false = finished
+  const durationRef = useRef(0);
+  const cyclesRef = useRef(0);
+  const completedRef = useRef(null);
 
   const formatTime = (seconds) => {
     const m = Math.floor(seconds / 60);
@@ -26,11 +28,13 @@ export default function Timer() {
   const saveTimer = useCallback(async (completed) => {
     try {
       await axios.post("http://localhost:4000/api/timer/save", {
-        category: mode,
+        mode,
         startTime: startTimeRef.current,
         endTime: Date.now(),
-        duration: timeLeft,
+        duration: durationRef.current,
+        actualDuration: durationRef.current - timeLeft,
         completed,
+        cyclesCompleted: cyclesRef.current
       });
     } catch (err) {
       console.error(err);
@@ -59,7 +63,6 @@ export default function Timer() {
     saveTimer(false);
   };
 
-  // Separate effect just for the tick
   useEffect(() => {
     if (!isRunning) return;
 
@@ -74,7 +77,6 @@ export default function Timer() {
             return 0;
           }
 
-          // Pomodoro phase switch
           if (phase === "work") {
             setPhase("break");
             return selected.break;
@@ -92,12 +94,13 @@ export default function Timer() {
 
   // Separate effect to react to completion signal
   useEffect(() => {
-    if (!isRunning && completedRef.current === true) {
-      completedRef.current = null; // reset so it doesn't fire again
-      alert("Timer completed 🔔");
-      saveTimer(true);
-    }
-  }, [isRunning, saveTimer]);
+  if (!isRunning && completedRef.current === true) {
+    completedRef.current = null;
+
+    alert("Timer completed ");
+    saveTimer(true);
+  }
+}, [isRunning, saveTimer]);
 
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
