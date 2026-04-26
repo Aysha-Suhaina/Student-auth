@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { React, useState, useEffect, useRef, useCallback } from "react";
 import axios from "axios";
 
 const TIMER_MODES = {
@@ -7,7 +7,7 @@ const TIMER_MODES = {
   pomodoro_40_10: { type: "cycle", work: 40 * 60, break: 10 * 60 },
 };
 
-function Timer() {
+export default function Timer() {
   const [mode, setMode] = useState("microtask");
   const [timeLeft, setTimeLeft] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
@@ -25,7 +25,7 @@ function Timer() {
 
   const saveTimer = useCallback(async (completed) => {
     try {
-      await axios.post("http://localhost:5000/api/timer/save", {
+      await axios.post("http://localhost:4000/api/timer/save", {
         category: mode,
         startTime: startTimeRef.current,
         endTime: Date.now(),
@@ -133,4 +133,3 @@ function Timer() {
   );
 }
 
-export default Timer;
