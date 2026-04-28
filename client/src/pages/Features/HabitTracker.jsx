@@ -37,9 +37,11 @@ export default function HabitTracker() {
       <h2>Habit Tracker</h2>
 
       {habits.map(habit => (
-        <div key={habit._id}>
-          {habit.habitName}
-        </div>
+  <HabitCard
+    key={habit._id}
+    habit={habit}
+    //refresh={fetchHabits}
+  />
       ))}
     </div>
   );
