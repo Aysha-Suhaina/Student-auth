@@ -1,10 +1,39 @@
-import mongoose from 'mongoose';
+const mongoose = require("mongoose");
 
-const habitSchema= new mongoose.Schema({
-    name:{type:String,required:true},
-    category:{type:String,required:true},
-    description:{type:String,},
-    completed:{type:Boolean,default:false},
-    frequency:{type:String,required:true},
-    userId:{type:mongoose.Schema.Types.ObjectId,ref:"student",required:true}
-})
+const logSchema = new mongoose.Schema({
+  date: {
+    type: String,
+    required: true
+  },
+  completed: {
+    type: Boolean,
+    required: true
+  }
+});
+
+const habitSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
+
+  habitName: {
+    type: String,
+    required: true
+  },
+
+  type: {
+    type: String,
+    enum: ["good", "bad"],
+    required: true
+  },
+
+  logs: [logSchema],
+
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+module.exports = mongoose.model("Habit", habitSchema);

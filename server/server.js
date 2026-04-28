@@ -6,6 +6,7 @@ import connectDB from './config/mongodb.js'
 import authRouter from './routes/authRoutes.js'
 import studentRouter from "./routes/studentRoutes.js";
 import timerRouter from "./routes/timerRoutes.js";
+import habitRouter from "./routes/habitRoutes.js";
 
 const app=express();
 
@@ -27,6 +28,7 @@ app.use((req,res,next)=>{
 app.use('/api/auth',authRouter)
 app.use('/api/student',studentRouter)
 app.use('/api/timer',timerRouter)
+app.use('/api/habit',habitRouter);
 
 app.listen(port ,()=>{
     console.log(`server is runnign on port ${port}`);
