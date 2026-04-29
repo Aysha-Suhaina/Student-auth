@@ -3,7 +3,6 @@ import HabitModel from "../models/HabitModel.js";
 export const createHabit = async (req, res) => {
   try {
     const { habitName, type, userId } = req.body;
-
     const activeHabits = await HabitModel.countDocuments({
       userId,
       type
@@ -11,6 +10,7 @@ export const createHabit = async (req, res) => {
 
     if (activeHabits >= 3) {
       return res.status(400).json({
+        success:false,
         message: "Max 3 habits allowed"
       });
     }
