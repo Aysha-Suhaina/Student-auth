@@ -22,7 +22,7 @@ Request Body (JSON)
 {
   "_id": "habit_id",
   "habitName": "Drink Water",
-  "type": "health",
+  "type": "good",
   "userId": "123456789",
   "logs": [],
   "createdAt": "2026-04-29T10:00:00.000Z"

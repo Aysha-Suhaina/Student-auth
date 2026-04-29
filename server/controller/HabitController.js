@@ -26,7 +26,7 @@ export const createHabit = async (req, res) => {
     res.status(201).json(habit);
 
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ success:false, message: err.message });
   }
 };
 
@@ -35,10 +35,17 @@ export const logHabit = async (req, res) => {
     const { habitId } = req.params;
     const { completed } = req.body;
 
+    
     const today = new Date().toISOString().split("T")[0];
 
     const habit = await HabitModel.findById(habitId);
 
+    if (!habit) {
+      return res.status(404).json({
+        success: false,
+        message: "Habit not found"
+      });
+    }
     const existingLog = habit.logs.find(
       log => log.date === today
     );
@@ -57,7 +64,7 @@ export const logHabit = async (req, res) => {
     res.json(habit);
 
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ success:false, message: err.message });
   }
 };
 
