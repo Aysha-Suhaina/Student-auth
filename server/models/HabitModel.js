@@ -1,5 +1,4 @@
-const mongoose = require("mongoose");
-
+import mongoose from "mongoose";
 const logSchema = new mongoose.Schema({
   date: {
     type: String,
@@ -36,4 +35,4 @@ const habitSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model("Habit", habitSchema);
+export default mongoose.model("HabitModel",habitSchema);

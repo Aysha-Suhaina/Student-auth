@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getHabits } from "../api/habitApi"; //createhabit is not used yet, so i commented it out for now
+import { getHabits } from "../../api/habitApi.js"; //createhabit is not used yet, so i commented it out for now
+import HabitCard from "../../components/HabitCard.jsx";
 
 export default function HabitTracker() {
   const [habits, setHabits] = useState([]);
@@ -36,13 +37,15 @@ export default function HabitTracker() {
     <div>
       <h2>Habit Tracker</h2>
 
-      {habits.map(habit => (
+  {habits.map(habit => (
   <HabitCard
     key={habit._id}
     habit={habit}
     //refresh={fetchHabits}
+
   />
       ))}
+      <p>heyy</p>
     </div>
   );
 }

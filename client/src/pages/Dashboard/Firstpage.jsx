@@ -9,6 +9,8 @@ const Firstpage = () => {
         {/* for firt time users - ask them this  */}
       <h1>What you're here for today !</h1>
       <p>Build a new habit</p>
+      <button onClick={()=> navigate("/habits")}>habit tracker
+      </button>
       <p>Break bad habit</p>
       <p>Complete a task with focus timer</p>
       <button onClick={()=> navigate("/timer")}>Start Timer

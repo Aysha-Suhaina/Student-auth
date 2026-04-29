@@ -1,10 +1,10 @@
-const Habit = require("../models/Habit");
+import HabitModel from "../models/HabitModel.js";
 
-exports.createHabit = async (req, res) => {
+export const createHabit = async (req, res) => {
   try {
     const { habitName, type, userId } = req.body;
 
-    const activeHabits = await Habit.countDocuments({
+    const activeHabits = await HabitModel.countDocuments({
       userId,
       type
     });
@@ -15,7 +15,7 @@ exports.createHabit = async (req, res) => {
       });
     }
 
-    const habit = new Habit({
+    const habit = new HabitModel({
       habitName,
       type,
       userId
@@ -30,14 +30,14 @@ exports.createHabit = async (req, res) => {
   }
 };
 
-exports.logHabit = async (req, res) => {
+export const logHabit = async (req, res) => {
   try {
     const { habitId } = req.params;
     const { completed } = req.body;
 
     const today = new Date().toISOString().split("T")[0];
 
-    const habit = await Habit.findById(habitId);
+    const habit = await HabitModel.findById(habitId);
 
     const existingLog = habit.logs.find(
       log => log.date === today
@@ -61,11 +61,11 @@ exports.logHabit = async (req, res) => {
   }
 };
 
-exports.getHabits = async (req, res) => {
+export const getHabits = async (req, res) => {
   try {
     const { userId } = req.params;
 
-    const habits = await Habit.find({ userId });
+    const habits = await HabitModel.find({ userId });
 
     res.json(habits);
 
